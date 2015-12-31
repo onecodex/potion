@@ -66,10 +66,7 @@ class Instances(PaginationMixin, Schema, ResourceBound):
         return self.resource.manager.PAGINATION_TYPES
 
     def _field_filters_schema(self, filters):
-        if len(filters) == 1:
-            return next(iter(filters.values())).request
-        else:
-            return {"anyOf": [filter.request for filter in filters.values()]}
+        return {"anyOf": [filter.request for filter in filters.values()]}
 
     @cached_property
     def _filters(self):
