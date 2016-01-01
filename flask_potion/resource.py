@@ -195,6 +195,7 @@ class Resource(six.with_metaclass(ResourceMeta, object)):
         title = None
         description = None
         required_fields = None
+        expand = False
         exclude_routes = ()
         route_decorators = {}
         read_only_fields = ()
