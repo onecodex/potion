@@ -3,7 +3,7 @@ from datetime import datetime
 import re
 
 import aniso8601
-from flask import current_app, request
+from flask import current_app, g, request
 import six
 from werkzeug.utils import cached_property
 
@@ -679,6 +679,21 @@ class ToOne(Raw, ResourceBound):
         return self.target.meta.key_converters[0]
 
     def formatter(self, item):
+        # Save the requested resource *once* per request (g)
+        if not hasattr(g, "expand_for_resource"):
+            g.expand_for_resource = self.resource.meta.name
+
+        # If we're at the top-level resource, then optionally expand
+        if self.resource.meta.name == g.expand_for_resource:
+            # Expand everything if expand set on resource.meta to True
+            if self.resource.meta.expand is True:
+                return self.target.schema.format(item)
+
+            # Otherwise check get query params
+            expand_models = [x.title() for x in request.args.getlist("expand")]
+            if "All" in expand_models or self.target.meta.name.title() in expand_models:
+                return self.target.schema.format(item)
+
         return self.formatter_key.format(item)
 
     def converter(self, value):
