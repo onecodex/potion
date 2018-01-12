@@ -125,6 +125,7 @@ class Api(object):
             endpoint = '{}.{}'.format(self.blueprint.name, endpoint)
 
         view_func = self.output(view_func)
+        view_func.__name__ = endpoint
 
         if decorate_view_func:
             for decorator in self.decorators:
