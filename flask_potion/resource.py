@@ -214,9 +214,9 @@ class ModelResourceMeta(ResourceMeta):
                 if meta.manager is not None:
                     class_.manager = meta.manager(class_, meta.model)
 
-        sort_attribute = meta.get('sort_attribute')
-        if sort_attribute is not None and isinstance(sort_attribute, str):
-            meta.sort_attribute = sort_attribute, False
+            sort_attribute = meta.get('sort_attribute')
+            if sort_attribute is not None and isinstance(sort_attribute, str):
+                meta.sort_attribute = sort_attribute, False
 
         return class_
 
