@@ -4,7 +4,7 @@ import re
 
 import aniso8601
 from flask import current_app
-from flask import request as flask_request
+from flask import has_request_context, request as flask_request
 import six
 from werkzeug.utils import cached_property
 
@@ -685,11 +685,11 @@ class ToOne(Raw, ResourceBound):
 
     def formatter(self, item):
         # Save the requested resource *once* per request on the Flask request context local
-        if not hasattr(flask_request, "expand_for_resource"):
+        if has_request_context() and not hasattr(flask_request, "expand_for_resource"):
             flask_request.expand_for_resource = self.resource.meta.name
 
         # If we're at the top-level resource, then optionally expand
-        if self.resource.meta.name == flask_request.expand_for_resource:
+        if has_request_context() and self.resource.meta.name == flask_request.expand_for_resource:
             # Expand everything if expand set on resource.meta to True
             if self.resource.meta.expand is True:
                 return self.target.schema.format(item)
