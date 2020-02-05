@@ -103,7 +103,7 @@ class Schema(object):
         :param request: Flask request object
         :return:
         """
-        data = request.json
+        data = request.get_json(silent=False)
 
         if not data and request.method in ('GET', 'HEAD'):
             data = dict(request.args)
@@ -264,8 +264,7 @@ class FieldSet(Schema, ResourceBound):
                 if not self.all_fields_optional:
                     raise RequestMustBeJSON()
 
-        # TODO change to request.get_json(silent=False) to catch invalid JSON
-        data = request.get_json(silent=True)
+        data = request.get_json(silent=False)
 
         if data is None and self.all_fields_optional:
             data = {}
