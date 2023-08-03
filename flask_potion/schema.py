@@ -130,6 +130,7 @@ class SchemaImpl(Schema):
     def schema(self):
         return self._schema
 
+
 class FieldSet(Schema, ResourceBound):
     """
     A schema representation of a dictionary of :class:`fields.Raw` objects.
@@ -264,7 +265,9 @@ class FieldSet(Schema, ResourceBound):
                 if not self.all_fields_optional:
                     raise RequestMustBeJSON()
 
-        data = request.get_json(silent=False)
+        data = None
+        if request.method != "GET":
+            data = request.get_json(silent=False)
 
         if data is None and self.all_fields_optional:
             data = {}

@@ -12,7 +12,7 @@ FOO_REFERENCE = {
     "properties": {
         "$ref": {
             "type": "string",
-            "pattern": "^\/api\/foo\/[^/]+$"
+            "pattern": "^/api/foo\/[^/]+$"
         }
     },
      "additionalProperties": False
@@ -23,7 +23,7 @@ FOO_REFERENCE_NULLABLE = {
     "properties": {
         "$ref": {
             "type": "string",
-            "pattern": "^\/api\/foo\/[^/]+$"
+            "pattern": "^/api/foo\/[^/]+$"
         }
     },
      "additionalProperties": False

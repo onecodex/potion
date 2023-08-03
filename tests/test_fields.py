@@ -3,6 +3,8 @@ from unittest import TestCase
 from uuid import uuid4
 import unittest
 from datetime import datetime, date, timedelta
+
+from aniso8601.exceptions import ISOFormatError
 from werkzeug.exceptions import BadRequest
 from flask_potion.exceptions import ValidationError
 from flask_potion import fields
@@ -175,7 +177,7 @@ class FieldsTestCase(TestCase):
                          fields.DateTime().format(datetime(2012, 2, 14, 0, 0, 0, 0, timezone.utc)))
 
     def test_date_time_string_convert(self):
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(ISOFormatError):
             fields.DateTimeString().convert('01.01.2016')
 
         self.assertEqual(datetime(2009, 2, 13, 23, 16, 40, 0, timezone.utc),

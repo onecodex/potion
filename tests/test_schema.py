@@ -108,21 +108,20 @@ class SchemaTestCase(TestCase):
         with app.test_request_context():
             env = request.environ
 
-        # Ensure allow empty POST
-        fs = FieldSet(None)
-        env['REQUEST_METHOD'] = 'POST'
-        fs.parse_request(Request(env))
+        with app.test_request_context(method="POST", json={}, environ_base={'CONTENT_TYPE': "application/json"}):
+            # Ensure allow empty POST
+            fs = FieldSet(None)
+            fs.parse_request(request)
 
         # Ensure failure when there are fields
-        fs = FieldSet({'field': fields.String()})
-        with self.assertRaises(RequestMustBeJSON):
-            fs.parse_request(Request(env))
+        with app.test_request_context(method="POST"):
+            fs = FieldSet({'field': fields.String()})
+            with self.assertRaises(RequestMustBeJSON):
+                fs.parse_request(request)
 
         # Successful POST with data
-        env['wsgi.input'] = StringIO('{"field": "data"}')
-        env['CONTENT_TYPE'] = 'application/json'
-        env['CONTENT_LENGTH'] = '17'
-        fs.parse_request(Request(env))
+        with app.test_request_context(method="POST", json={"field": "data"}, environ_base={'CONTENT_TYPE': "application/json"}):
+            fs.parse_request(request)
 
     def test_fieldset_format(self):
         self.assertEqual(

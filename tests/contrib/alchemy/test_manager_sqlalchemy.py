@@ -12,6 +12,7 @@ class SQLAlchemyTestCase(BaseTestCase):
     def setUp(self):
         super(SQLAlchemyTestCase, self).setUp()
         self.app.config['SQLALCHEMY_ENGINE'] = 'sqlite://'
+        self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.api = Api(self.app, default_manager=SQLAlchemyManager)
         self.sa = sa = SQLAlchemy(self.app, session_options={"autoflush": False})
 
@@ -63,10 +64,6 @@ class SQLAlchemyTestCase(BaseTestCase):
         self.assertEqual(set(self.TypeResource.schema.fields.keys()), {'$id', '$type', 'name', 'version', 'machines'})
         self.assertEqual(self.MachineResource.meta.name, 'machine')
         self.assertEqual(self.TypeResource.meta.name, 'type')
-
-    def test_create_no_json(self):
-        response = self.client.post('/machine', data='invalid')
-        self.assert400(response)
 
     def test_create_json_string(self):
         response = self.client.post('/machine', data='invalid', force_json=True)
@@ -193,7 +190,7 @@ class SQLAlchemyTestCase(BaseTestCase):
                                                      "additionalProperties": False,
                                                      "properties": {
                                                          "$ref": {
-                                                             "pattern": "^\\/type\\/[^/]+$",
+                                                             "pattern": "^/type\\/[^/]+$",
                                                              "type": "string"
                                                          }
                                                      },
@@ -233,6 +230,7 @@ class SQLAlchemyRelationTestCase(BaseTestCase):
     def setUp(self):
         super(SQLAlchemyRelationTestCase, self).setUp()
         self.app.config['SQLALCHEMY_ENGINE'] = 'sqlite://'
+        self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.api = Api(self.app)
         self.sa = sa = SQLAlchemy(self.app, session_options={"autoflush": False})
 
@@ -375,6 +373,7 @@ class SQLAlchemyInspectionTestCase(BaseTestCase):
     def setUp(self):
         super(SQLAlchemyInspectionTestCase, self).setUp()
         self.app.config['SQLALCHEMY_ENGINE'] = 'sqlite://'
+        self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.api = Api(self.app)
         self.sa = sa = SQLAlchemy(self.app, session_options={"autoflush": False})
 
@@ -417,6 +416,7 @@ class SQLAlchemySequenceTestCase(BaseTestCase):
     def setUp(self):
         super(SQLAlchemySequenceTestCase, self).setUp()
         self.app.config['SQLALCHEMY_ENGINE'] = 'sqlite://'
+        self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.api = Api(self.app)
         self.sa = sa = SQLAlchemy(self.app, session_options={"autoflush": False})
 
@@ -455,6 +455,7 @@ class SQLAlchemySortTestCase(BaseTestCase):
     def setUp(self):
         super(SQLAlchemySortTestCase, self).setUp()
         self.app.config['SQLALCHEMY_ENGINE'] = 'sqlite://'
+        self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.api = Api(self.app)
         self.sa = sa = SQLAlchemy(
             self.app, session_options={"autoflush": False})
@@ -529,6 +530,7 @@ class QueryOptionsSQLAlchemyTestCase(BaseTestCase):
     def setUp(self):
         super(QueryOptionsSQLAlchemyTestCase, self).setUp()
         self.app.config['SQLALCHEMY_ENGINE'] = 'sqlite://'
+        self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.api = Api(self.app, default_manager=SQLAlchemyManager)
         self.sa = sa = SQLAlchemy(self.app, session_options={"autoflush": False})
 

@@ -54,7 +54,7 @@ class BlueprintApiTestCase(BaseTestCase):
         self.assert200(response)
 
         response = self.client.get("/api/v1/samples/schema")
-        self.assertEqual('^\\/api\\/v1\\/samples\\/[^/]+$', response.json['properties']['$uri']['pattern'])
+        self.assertEqual('^/api/v1/samples\\/[^/]+$', response.json['properties']['$uri']['pattern'])
 
     def test_api_blueprint_init_app(self):
         api = Api()
@@ -69,7 +69,7 @@ class BlueprintApiTestCase(BaseTestCase):
         self.assert200(response)
 
         response = self.client.get("/api/v1/samples/schema")
-        self.assertEqual('^\\/api\\/v1\\/samples\\/[^/]+$', response.json['properties']['$uri']['pattern'])
+        self.assertEqual('^/api/v1/samples\\/[^/]+$', response.json['properties']['$uri']['pattern'])
 
     def test_multiple_blueprints(self):
         # Create Blueprints
@@ -104,10 +104,10 @@ class BlueprintApiTestCase(BaseTestCase):
         self.assertEqual('/api/v2/samples/schema#', response.json['properties']['samples']['$ref'])
 
         response = self.client.get("/api/v1/samples/schema")
-        self.assertEqual('^\\/api\\/v1\\/samples\\/[^/]+$', response.json['properties']['$uri']['pattern'])
+        self.assertEqual('^/api/v1/samples\\/[^/]+$', response.json['properties']['$uri']['pattern'])
 
         response = self.client.get("/api/v2/samples/schema")
-        self.assertEqual('^\\/api\\/v2\\/samples\\/[^/]+$', response.json['properties']['$uri']['pattern'])
+        self.assertEqual('^/api/v2/samples\\/[^/]+$', response.json['properties']['$uri']['pattern'])
 
         # Test that we have two prefix'd schemas
         response = self.client.get("/api/v1/schema")

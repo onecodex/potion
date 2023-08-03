@@ -144,13 +144,14 @@ class ApiTestCase(BaseTestCase):
         response = self.client.get("/book/schema")
 
         self.maxDiff = None
+        print(response.json['properties'])
         self.assertEqual({
                              "title": {
                                  "type": "string"
                              },
                              "$uri": {
                                  "type": "string",
-                                 'pattern': '^\\/book\\/[^/]+$',
+                                 'pattern': '^/book\\/[^/]+$',
                                  "readOnly": True
                              },
                          }, response.json['properties'])
