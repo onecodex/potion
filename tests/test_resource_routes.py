@@ -65,7 +65,6 @@ class RelationTestCase(BaseTestCase):
         }, response.json)
 
         response = self.client.get('/box/greet?greeting=Hello')
-        print(response.text)
         self.assertEqual("Hello box!", response.json)
 
     @unittest.SkipTest

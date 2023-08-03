@@ -63,7 +63,6 @@ class ErrorMessagesTestCase(BaseTestCase):
     def test_not_found_exception(self):
         response = self.client.get('/prefix/error/missing')
         self.assert404(response)
-        print(response.json)
         self.assertEqual({
             "message": "The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.",
             "status": 404

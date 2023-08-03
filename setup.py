@@ -8,9 +8,6 @@ tests_require = [
     'Flask-Testing>=0.4.1',
     'Flask-Principal>=0.4.0',
     'Flask-SQLAlchemy>=3.0',
-    # 'Flask-MongoEngine>=0.7.1',
-    # 'peewee==2.*',
-    # 'nose>=1.1.2',
 ]
 
 setup(
@@ -58,12 +55,6 @@ setup(
         'sqlalchemy': [
             'Flask-SQLAlchemy>=2.0'
         ],
-        # 'peewee': [
-        #     'peewee==2.*'
-        # ],
-        # 'mongoengine': [
-        #     'Flask-MongoEngine>=0.7.0'
-        # ],
         'tests': tests_require,
     }
 )
