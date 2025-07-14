@@ -10,7 +10,7 @@ def route_from(url, method=None):
     url_adapter = current_app.create_url_adapter(url_request)
     parsed_url = urlsplit(url)
 
-    if parsed_url.netloc is not "" and parsed_url.netloc != url_adapter.server_name:
+    if parsed_url.netloc != "" and parsed_url.netloc != url_adapter.server_name:
         raise NotFound()
 
     return url_adapter.match(parsed_url.path, method)
