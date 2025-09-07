@@ -22,7 +22,6 @@ class ApiClient(FlaskClient):
 
 
 class BaseTestCase(TestCase):
-
     def assertJSONEqual(self, first, second, msg=None):
         self.assertEqual(json.loads(json.dumps(first)), json.loads(json.dumps(second)), msg)
 

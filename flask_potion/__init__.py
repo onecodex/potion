@@ -5,7 +5,7 @@ from functools import partial
 from flask import current_app, make_response, json, Response, request
 from six import wraps
 from werkzeug.exceptions import HTTPException
-from werkzeug.wrappers import BaseResponse
+from werkzeug.wrappers import Response
 from .exceptions import PotionException
 from .routes import RouteSet, to_camel_case
 from .utils import unpack
@@ -156,7 +156,7 @@ class Api(object):
         def wrapper(*args, **kwargs):
             resp = view(*args, **kwargs)
 
-            if isinstance(resp, BaseResponse):
+            if isinstance(resp, Response):
                 return resp
 
             data, code, headers = unpack(resp)

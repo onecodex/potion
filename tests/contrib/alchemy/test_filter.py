@@ -15,6 +15,7 @@ class FilterTestCase(BaseTestCase):
         super(FilterTestCase, self).setUp()
         app = self.app
         app.config['SQLALCHEMY_ENGINE'] = 'sqlite://'
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         app.config['TESTING'] = True
 
         self.api = Api(self.app)
@@ -43,7 +44,6 @@ class FilterTestCase(BaseTestCase):
             date = sa.Column(sa.Date)
 
         sa.create_all()
-
 
         class UserResource(ModelResource):
             class Schema:

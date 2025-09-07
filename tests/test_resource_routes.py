@@ -179,6 +179,7 @@ class RelationTestCase(BaseTestCase):
                              }, response.json)
 
         response = self.client.get('/group/1/members')
+
         self.assert200(response)
         self.assertJSONEqual([], response.json)
 

@@ -1,4 +1,5 @@
 from functools import partial
+from contextlib import contextmanager
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import backref
 from flask_potion import fields
@@ -7,7 +8,6 @@ from flask_potion.routes import Relation
 from flask_potion.resource import ModelResource
 from flask_potion import Api
 from tests import BaseTestCase
-from blinker._utilities import contextmanager
 from blinker import ANY
 
 
@@ -15,6 +15,7 @@ class SQLAlchemySignalTestCase(BaseTestCase):
     def setUp(self):
         super(SQLAlchemySignalTestCase, self).setUp()
         self.app.config['SQLALCHEMY_ENGINE'] = 'sqlite://'
+        self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         self.api = Api(self.app)
         self.sa = sa = SQLAlchemy(self.app)
 

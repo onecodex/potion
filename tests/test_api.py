@@ -150,7 +150,7 @@ class ApiTestCase(BaseTestCase):
                              },
                              "$uri": {
                                  "type": "string",
-                                 'pattern': '^\\/book\\/[^/]+$',
+                                 'pattern': '^/book\\/[^/]+$',
                                  "readOnly": True
                              },
                          }, response.json['properties'])

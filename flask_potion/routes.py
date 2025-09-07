@@ -4,6 +4,7 @@ from collections import OrderedDict
 from types import MethodType
 
 from flask import request
+from sqlalchemy.orm.exc import StaleDataError
 from werkzeug.utils import cached_property
 
 from flask_potion.reference import _bind_schema
@@ -444,7 +445,10 @@ class Relation(RouteSet, ResourceBound):
             def relation_remove(resource, item, target_id):
                 target_item = self.target.manager.read(target_id)
                 resource.manager.relation_remove(item, self.attribute, self.target, target_item)
-                resource.manager.commit()
+                try:
+                    resource.manager.commit()
+                except StaleDataError:
+                    pass
                 return None, 204
 
             yield relation_route.for_method('DELETE',

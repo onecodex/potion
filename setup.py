@@ -7,10 +7,7 @@ from setuptools import setup, find_packages
 tests_require = [
     'Flask-Testing>=0.4.1',
     'Flask-Principal>=0.4.0',
-    'Flask-SQLAlchemy>=2.0',
-    'Flask-MongoEngine>=0.7.1',
-    'peewee==2.*',
-    'nose>=1.1.2',
+    'Flask-SQLAlchemy>=3.0',
 ]
 
 setup(
@@ -26,7 +23,7 @@ setup(
     test_suite='nose.collector',
     tests_require=tests_require,
     install_requires=[
-        'Flask>=0.10',
+        'Flask>=2.3.0',
         'jsonschema>=2.4.0',
         'aniso8601>=0.84',
         'blinker>=1.3',
@@ -51,18 +48,12 @@ setup(
     ],
     zip_safe=False,
     extras_require={
-        'docs': ['sphinx', 'Flask-Principal', 'Flask-SQLAlchemy', 'peewee'],
+        'docs': ['sphinx', 'Flask-Principal', 'Flask-SQLAlchemy'],
         'principal': [
             'Flask-Principal',
         ],
         'sqlalchemy': [
             'Flask-SQLAlchemy>=2.0'
-        ],
-        'peewee': [
-            'peewee==2.*'
-        ],
-        'mongoengine': [
-            'Flask-MongoEngine>=0.7.0'
         ],
         'tests': tests_require,
     }

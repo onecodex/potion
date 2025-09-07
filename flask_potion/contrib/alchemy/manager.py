@@ -1,5 +1,5 @@
 from flask import current_app
-from flask_sqlalchemy import Pagination as SAPagination, get_state
+from flask_sqlalchemy.pagination import Pagination as SAPagination
 from sqlalchemy import String, or_, and_
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.exc import IntegrityError
@@ -9,7 +9,7 @@ from sqlalchemy.orm.collections import InstrumentedList
 from sqlalchemy.orm.exc import NoResultFound
 
 from flask_potion import fields
-from flask_potion.contrib.alchemy.filters import FILTER_NAMES, FILTERS_BY_TYPE, SQLAlchemyBaseFilter
+from flask_potion.contrib.alchemy.filters import FILTER_NAMES, FILTERS_BY_TYPE
 from flask_potion.exceptions import ItemNotFound, DuplicateKey, BackendConflict
 from flask_potion.instances import Pagination
 from flask_potion.manager import RelationalManager
@@ -144,7 +144,7 @@ class SQLAlchemyManager(RelationalManager):
 
     @staticmethod
     def _get_session():
-        return get_state(current_app).db.session
+        return current_app.extensions['sqlalchemy'].session
 
     @staticmethod
     def _is_change(a, b):
